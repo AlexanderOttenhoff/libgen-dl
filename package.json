@@ -8,6 +8,21 @@
     "start": "node index"
   },
   "dependencies": {
-    "libgen": "^1.0.0"
+    "cli-spinner": "^0.2.5",
+    "filesize": "^3.3.0",
+    "inquirer": "^2.0.0",
+    "libgen": "^1.0.0",
+    "numeral": "^2.0.4",
+    "request": "^2.79.0",
+    "request-progress": "^3.0.0",
+    "sanitize-filename": "^1.6.1",
+    "webtorrent": "^0.98.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0"
   }
 }
