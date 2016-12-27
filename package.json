@@ -1,0 +1,13 @@
+{
+  "name": "libgen-dl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Alexander Ottenhoff <alexander@sqreen.io>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index"
+  },
+  "dependencies": {
+    "libgen": "^1.0.0"
+  }
+}
