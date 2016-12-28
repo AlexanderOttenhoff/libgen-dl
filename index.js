@@ -13,17 +13,18 @@ const Spinner = require('cli-spinner').Spinner;
 const query = process.argv.slice(2).join(' ');
 
 const getBestMirror = () => new Promise((resolve, reject) => {
-  const spinner = new Spinner('Finding Mirror');
+  const spinner = new Spinner('Finding Libgen Mirror');
   spinner.start();
   libgen.mirror((err, url) => {
     spinner.stop(true);
+    console.log(`Using Mirror: ${url}`);
     if (err) return reject(err);
     return resolve(url);
   });
 });
 
 const search = options => new Promise((resolve, reject) => {
-  const spinner = new Spinner('Searching');
+  const spinner = new Spinner('Searching Libgen');
   spinner.start();
   return libgen.search(options, (err, data) => {
     spinner.stop(true);
@@ -33,7 +34,7 @@ const search = options => new Promise((resolve, reject) => {
 });
 
 const canDownload = md5 => new Promise((resolve, reject) => {
-  const spinner = new Spinner('Finding download link');
+  const spinner = new Spinner('Checking for download link');
   spinner.start();
   return libgen.utils.check.canDownload(md5, (err, url) => {
     spinner.stop(true);
@@ -44,6 +45,8 @@ const canDownload = md5 => new Promise((resolve, reject) => {
 
 const getFileName = book => sanitize(`${book.title}.${book.extension}`);
 
+// Doesn't seem to work, but neither does the torrent link
+// TODO: Find a good way to download from mirror or get a better magnet URL
 const downloadHttp = (fileName, url) => new Promise((resolve, reject) => {
   const spinner = new Spinner('Downloading (0%)');
   spinner.start();
@@ -106,8 +109,8 @@ getBestMirror()
     })),
   }))
   .then(({ book }) =>
-    canDownload(book.md5)
-      .then(data => downloadHttp(getFileName(book), data))
-      .catch((err) => { throw err; }))
+    canDownload(book.md5))
+      // .then(data => downloadHttp(getFileName(book), data))
+      // .catch((err) => { throw err; }))
   .then(console.log)
   .catch(console.error);
